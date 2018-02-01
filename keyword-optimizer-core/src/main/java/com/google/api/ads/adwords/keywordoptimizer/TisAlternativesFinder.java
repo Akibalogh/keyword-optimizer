@@ -47,12 +47,12 @@ public class TisAlternativesFinder implements AlternativesFinder {
   // Page size for retrieving results. All pages are used anyways (not just the first one), so
   // using a reasonable value here.
   public static final int PAGE_SIZE = 100;
-  
+
   private TargetingIdeaServiceInterface tis;
 
   /**
    * Creates a new {@link TisAlternativesFinder}.
-   * 
+   *
    * @param context holding shared objects during the optimization process
    */
   public TisAlternativesFinder(OptimizationContext context) {
@@ -78,7 +78,7 @@ public class TisAlternativesFinder implements AlternativesFinder {
   /**
    * Creates the selector for the {@link TargetingIdeaService} based on a given set of
    * {@link KeywordCollection}.
-   * 
+   *
    * @param keywords the {@link KeywordCollection} to create the selector
    * @return the selector for the {@link TargetingIdeaService}
    */
@@ -134,7 +134,6 @@ public class TisAlternativesFinder implements AlternativesFinder {
             StringAttribute keywordAttribute =
                 (StringAttribute) attributeData.get(AttributeType.KEYWORD_TEXT);
             IdeaEstimate estimate = KeywordOptimizerUtil.toSearchEstimate(attributeData);
-            
             keywordsAndEstimatesBuilder.put(keywordAttribute.getValue(), estimate);
           }
         }
@@ -142,7 +141,8 @@ public class TisAlternativesFinder implements AlternativesFinder {
       } while (offset < page.getTotalNumEntries());
 
     } catch (ApiException e) {
-      throw new KeywordOptimizerException("Problem while querying the targeting idea service", e);
+      throw new KeywordOptimizerException("Problem while querying the targeting idea service: "
+          + e.getMessage(), e);
     } catch (RemoteException e) {
       throw new KeywordOptimizerException("Problem while connecting to the AdWords API", e);
     }

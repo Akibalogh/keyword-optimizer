@@ -3,11 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.api-ads</groupId>
   <artifactId>keyword-optimizer</artifactId>
-  <version>0.2.1</version>
+  <version>0.2.2</version>
   <packaging>pom</packaging>
   <name>keyword-optimizer</name>
   <modules>
     <module>keyword-optimizer-core</module>
-    <module>keyword-optimizer-api</module>
   </modules>
 </project>

@@ -54,9 +54,6 @@ this tool will not work as intended for test accounts either.
 The code is organized in three separate Maven projects:
 * **keyword-optimizer-core** contains the core library and code necessary to
 run the tool from the command line. Previously, all code was bundled here.
-* **keyword-optimizer-api** contains a REST API on top of the core project. The
-intention of this API is to allow developers to use this tool with programming
-languages other than Java.
 * **keyword-optimizer** is the parent project that encompasses both projects
 above as modules.
 
@@ -70,16 +67,7 @@ You will need Java and Maven installed before configuring the project.
 
 ```$ git clone https://github.com/googleads/keyword-optimizer```
 
-```$ mvn clean install eclipse:eclipse```
-
 ```$ mvn compile dependency:copy-dependencies package```
-
-### Import the project into Eclipse (optional)
-
-To import the project into Eclipse, perform the following steps.
-
-> File -> Import -> Maven -> Existing Maven Projects -> (select the project
-folder).
 
 ### Configure KeywordOptimizer
 
@@ -135,9 +123,12 @@ You can run the tool using the following command. Be sure to specify the path
 to the properties files above using the `-ap` and `-kp` parameters.
 
 ```
-$ java -jar target/keyword-optimizer.jar -ap src/main/resources/ads.properties \
--kp src/main/resources/keyword-optimizer.properties
+$ java -jar target/keyword-optimizer.jar -ap src/main/resources/ads.properties -kp src/main/resources/keyword-optimizer.properties -m EXACT -o CONSOLE -cpc 10.0 -sk "emergency plumber"
 ```
+
+***Note: Additional required parameters are included above to show a full example of running the tool
+with standard parameters.***
+
 
 #### Running with Maven
 Alternatively, you can run the tool using Maven as follows.
@@ -146,49 +137,6 @@ Alternatively, you can run the tool using Maven as follows.
 $ mvn exec:java -Dexec.mainClass="com.google.api.ads.adwords.keywordoptimizer.KeywordOptimizer" \
 -Dexec.args="-ap keyword-optimizer-core/src/main/resources/ads.properties -kp keyword-optimizer-core/src/main/resources/keyword-optimizer.properties"
 ```
-
-#### Running in Eclipse
-You can also run the tool from Eclipse by starting the main class
-`com.google.api.ads.adwords.keywordoptimizer.KeywordOptimizer`.
-
-#### Running the REST API server
-Maven is configured to bundle the components needed for the API server into a
-war file (`keyword-optimizer-api/target/keyword-optimizer-api.war`). You can
-deploy this war file on all common Java application servers to run the API.
-Don't forget to customize the property files before running the build process
-(see above).
-
-Alternatively, we included a standalone server based on
-[Jetty](https://en.wikipedia.org/wiki/Jetty), which you can run by starting
-`com.google.api.ads.adwords.keywordoptimizer.api.ApiServer`. It expects the same
-arguments as the command-line version for the properties files (see below). In
-addition, you can optionally specify a port and context path for the HTTP
-server.
-
-If you use the default parameters, you can use the REST API via the following
-URLs:
-* **http://localhost:8080/keyword-optimizer/api/optimize/url?url=<url>:**
-Uses a given URL to generate seed keywords (replace **<url>** with the actual
-URL). Equivalent to the `-su` command-line parameter.
-* **http://localhost:8080/keyword-optimizer/api/optimize/category?category=<category>:**
-Uses a given URL to generate seed keywords (replace **<category>** with the
-actual category ID). Equivalent to  the `-sc` command-line parameter.
-* **http://localhost:8080/keyword-optimizer/api/optimize/term?term=<term>:**
-Uses a set of search terms to generate seed keywords (replace **<term>** with
-the search term / query. There can be multiple **<term>** parameters).
-Equivalent to  the `-st` command-line parameter.
-* **http://localhost:8080/keyword-optimizer/api/optimize/keyword?keyword=<keyword>:**
-Uses a set of keywords directly as a seed (replace **<keyword>** with
-the search term / query. There can be multiple **<keyword>** parameters).
-Equivalent to  the `-sk` command-line parameter.
-
-In addition, use the following URL parameters to specify further options:
-* **cpc:** Max. CPC setting, equivalent to the `-cpc` command-line parameter.
-* **m:** Keyword match type, equivalent to the `-m` command-line parameter.
-* **lang:** Language, equivalent to the `-lang` command-line parameter.
-* **loc:** Location, equivalent to the `-loc` command-line parameter.
-
-The results of each call are returned as JSON objects.
 
 ### Command line options
 
