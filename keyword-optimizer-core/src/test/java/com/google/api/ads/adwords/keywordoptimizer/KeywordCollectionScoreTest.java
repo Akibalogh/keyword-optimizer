@@ -17,9 +17,9 @@ package com.google.api.ads.adwords.keywordoptimizer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.api.ads.adwords.axis.v201710.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201710.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201710.cm.Money;
+import com.google.api.ads.adwords.axis.v201802.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201802.cm.Money;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import java.util.List;

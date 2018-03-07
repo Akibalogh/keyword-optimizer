@@ -14,17 +14,17 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201710.cm.ApiException;
-import com.google.api.ads.adwords.axis.v201710.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201710.cm.Paging;
-import com.google.api.ads.adwords.axis.v201710.o.Attribute;
-import com.google.api.ads.adwords.axis.v201710.o.AttributeType;
-import com.google.api.ads.adwords.axis.v201710.o.StringAttribute;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdea;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaPage;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaService;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201802.cm.ApiException;
+import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201802.cm.Paging;
+import com.google.api.ads.adwords.axis.v201802.o.Attribute;
+import com.google.api.ads.adwords.axis.v201802.o.AttributeType;
+import com.google.api.ads.adwords.axis.v201802.o.StringAttribute;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdea;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaPage;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaServiceInterface;
 import com.google.api.ads.common.lib.utils.Maps;
 import com.google.common.collect.ImmutableMap;
 import java.rmi.RemoteException;

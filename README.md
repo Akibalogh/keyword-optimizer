@@ -94,6 +94,7 @@ own implementations here.
 
 This is our default configuration:
 
+
     # Properties for KeywordOptimizer
 
     # Class used for finding keyword alternatives, has to implement com.google.api.ads.adwords.keywordoptimizer.AlternativesFinder.
@@ -123,7 +124,7 @@ You can run the tool using the following command. Be sure to specify the path
 to the properties files above using the `-ap` and `-kp` parameters.
 
 ```
-$ java -jar target/keyword-optimizer.jar -ap src/main/resources/ads.properties -kp src/main/resources/keyword-optimizer.properties -m EXACT -o CONSOLE -cpc 10.0 -sk "emergency plumber"
+$ java -jar keyword-optimizer-core/target/keyword-optimizer.jar -ap keyword-optimizer-core/src/main/resources/ads.properties -kp keyword-optimizer-core/src/main/resources/keyword-optimizer.properties -m EXACT -o CONSOLE -cpc 10.0 -sk "emergency plumber"
 ```
 
 ***Note: Additional required parameters are included above to show a full example of running the tool
@@ -202,7 +203,7 @@ Pull requests are very much appreciated. Please sign the [Google Individual Cont
     <a href="https://plus.google.com/109796202278783565960">Damien Allison
     (Google Inc.).</a>
   </dd>
-  <dt>Copyright</dt><dd>Copyright © 2016-2017 Google, Inc.</dd>
+  <dt>Copyright</dt><dd>Copyright © 2016 Google, Inc.</dd>
   <dt>License</dt><dd>Apache 2.0</dd>
   <dt>Limitations</dt><dd>This is example software, use with caution at your own risk.</dd>
 </dl>

@@ -16,9 +16,9 @@ package com.google.api.ads.adwords.keywordoptimizer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.google.api.ads.adwords.axis.v201710.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201710.cm.Money;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201802.cm.Money;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaServiceInterface;
 import com.google.api.ads.adwords.keywordoptimizer.CampaignConfiguration.CampaignConfigurationBuilder;
 import com.google.api.ads.common.lib.conf.ConfigurationLoadException;
 import com.google.api.ads.common.lib.exception.OAuthException;

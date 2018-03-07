@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.google.api.ads.adwords.axis.v201710.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
 import com.google.common.collect.Sets;
 import java.util.Set;
 import org.junit.Test;

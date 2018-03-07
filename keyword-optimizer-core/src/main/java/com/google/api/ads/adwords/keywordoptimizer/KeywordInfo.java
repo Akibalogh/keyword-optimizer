@@ -14,8 +14,8 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201710.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201710.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201802.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaService;
 
 import javax.annotation.Nullable;
 import org.apache.commons.lang.SystemUtils;
