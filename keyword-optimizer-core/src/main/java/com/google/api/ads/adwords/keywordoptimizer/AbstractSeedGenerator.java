@@ -14,8 +14,8 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201802.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 import java.util.Map;

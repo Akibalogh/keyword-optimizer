@@ -14,14 +14,14 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201802.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201802.cm.Paging;
-import com.google.api.ads.adwords.axis.v201802.o.IdeaType;
-import com.google.api.ads.adwords.axis.v201802.o.RelatedToUrlSearchParameter;
-import com.google.api.ads.adwords.axis.v201802.o.RequestType;
-import com.google.api.ads.adwords.axis.v201802.o.SearchParameter;
-import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201802.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201806.cm.Paging;
+import com.google.api.ads.adwords.axis.v201806.o.IdeaType;
+import com.google.api.ads.adwords.axis.v201806.o.RelatedToUrlSearchParameter;
+import com.google.api.ads.adwords.axis.v201806.o.RequestType;
+import com.google.api.ads.adwords.axis.v201806.o.SearchParameter;
+import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
