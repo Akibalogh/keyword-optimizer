@@ -14,15 +14,15 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Paging;
-import com.google.api.ads.adwords.axis.v201806.o.CategoryProductsAndServicesSearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.IdeaType;
-import com.google.api.ads.adwords.axis.v201806.o.RequestType;
-import com.google.api.ads.adwords.axis.v201806.o.SearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaService;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Paging;
+import com.google.api.ads.adwords.axis.v201809.o.CategoryProductsAndServicesSearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.IdeaType;
+import com.google.api.ads.adwords.axis.v201809.o.RequestType;
+import com.google.api.ads.adwords.axis.v201809.o.SearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -61,7 +61,7 @@ public class TisCategorySeedGenerator extends TisBasedSeedGenerator {
     selector.setPaging(new Paging(0, PAGE_SIZE));
     selector.setRequestedAttributeTypes(KeywordOptimizerUtil.TIS_ATTRIBUTE_TYPES);
 
-    List<SearchParameter> searchParameters = new ArrayList<SearchParameter>();
+    List<SearchParameter> searchParameters = new ArrayList<>();
 
     // Get ideas related to query search parameter.
     CategoryProductsAndServicesSearchParameter categoryParameter =

@@ -67,8 +67,7 @@ public class Optimizer {
   public KeywordCollection optimize() throws KeywordOptimizerException {
     KeywordCollection seedKeywords = seedGenerator.generate();
 
-    KeywordCollection seedPopulation = evaluator.evaluate(seedKeywords);
-    KeywordCollection currentPopulation = seedPopulation;
+    KeywordCollection currentPopulation = evaluator.evaluate(seedKeywords);
     int currentStep = 0;
 
     logStatus(currentPopulation, currentStep);

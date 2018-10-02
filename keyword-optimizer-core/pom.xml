@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.google.api-ads</groupId>
   <artifactId>keyword-optimizer-core</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
   <packaging>jar</packaging>
   <name>keyword-optimizer-core</name>
   <dependencies>
@@ -53,8 +53,8 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
       <plugin>

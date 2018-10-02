@@ -17,11 +17,11 @@ package com.google.api.ads.adwords.keywordoptimizer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Language;
-import com.google.api.ads.adwords.axis.v201806.cm.Location;
-import com.google.api.ads.adwords.axis.v201806.cm.Money;
+import com.google.api.ads.adwords.axis.v201809.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Language;
+import com.google.api.ads.adwords.axis.v201809.cm.Location;
+import com.google.api.ads.adwords.axis.v201809.cm.Money;
 import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,7 +41,9 @@ public class KeywordCollectionTest {
   private Language english;
   private Money maxCpc;
 
+  private CampaignConfiguration campaignSettings;
   private KeywordCollection keywords;
+
 
   /**
    * Setup some sample keywords.
@@ -69,11 +71,12 @@ public class KeywordCollectionTest {
     maxCpc = new Money();
     maxCpc.setMicroAmount(1000000L); // 1 usd
 
-    CampaignConfiguration campaignSettings = CampaignConfiguration.builder()
-        .withMaxCpc(maxCpc)
-        .withCriterion(english)
-        .withCriterion(newYork)
-        .build();
+    campaignSettings =
+        CampaignConfiguration.builder()
+            .withMaxCpc(maxCpc)
+            .withCriterion(english)
+            .withCriterion(newYork)
+            .build();
     keywords = new KeywordCollection(campaignSettings);
     
     keywords = new KeywordCollection(campaignSettings);
@@ -136,5 +139,11 @@ public class KeywordCollectionTest {
     keywords.add(new KeywordInfo(plumbing2, null, null, null));
 
     assertEquals(3, keywords.size());
+  }
+
+  @Test
+  public void averageZeroNotDivideByZero() {
+    KeywordCollection collection = new KeywordCollection(campaignSettings);
+    assertEquals("Expected 0", collection.getAverageScore(), 0.0, 0.0001);
   }
 }

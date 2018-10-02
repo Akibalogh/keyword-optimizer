@@ -14,22 +14,22 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.ApiException;
-import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Paging;
-import com.google.api.ads.adwords.axis.v201806.o.Attribute;
-import com.google.api.ads.adwords.axis.v201806.o.AttributeType;
-import com.google.api.ads.adwords.axis.v201806.o.IdeaType;
-import com.google.api.ads.adwords.axis.v201806.o.RelatedToQuerySearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.RequestType;
-import com.google.api.ads.adwords.axis.v201806.o.SearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.StringAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdea;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaPage;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaService;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.ApiException;
+import com.google.api.ads.adwords.axis.v201809.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Paging;
+import com.google.api.ads.adwords.axis.v201809.o.Attribute;
+import com.google.api.ads.adwords.axis.v201809.o.AttributeType;
+import com.google.api.ads.adwords.axis.v201809.o.IdeaType;
+import com.google.api.ads.adwords.axis.v201809.o.RelatedToQuerySearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.RequestType;
+import com.google.api.ads.adwords.axis.v201809.o.SearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.StringAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdea;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaPage;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
 import com.google.api.ads.common.lib.utils.Maps;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
@@ -46,7 +46,7 @@ import java.util.Map;
 public class TisAlternativesFinder implements AlternativesFinder {
   // Page size for retrieving results. All pages are used anyways (not just the first one), so
   // using a reasonable value here.
-  public static final int PAGE_SIZE = 100;
+  private static final int PAGE_SIZE = 100;
 
   private TargetingIdeaServiceInterface tis;
 
@@ -76,19 +76,19 @@ public class TisAlternativesFinder implements AlternativesFinder {
   }
 
   /**
-   * Creates the selector for the {@link TargetingIdeaService} based on a given set of
-   * {@link KeywordCollection}.
+   * Creates the selector for the {@link TargetingIdeaService} based on a given set of {@link
+   * KeywordCollection}.
    *
    * @param keywords the {@link KeywordCollection} to create the selector
    * @return the selector for the {@link TargetingIdeaService}
    */
-  protected TargetingIdeaSelector getSelector(KeywordCollection keywords) {
+  private TargetingIdeaSelector getSelector(KeywordCollection keywords) {
     TargetingIdeaSelector selector = new TargetingIdeaSelector();
     selector.setRequestType(RequestType.IDEAS);
     selector.setIdeaType(IdeaType.KEYWORD);
     selector.setRequestedAttributeTypes(KeywordOptimizerUtil.TIS_ATTRIBUTE_TYPES);
 
-    List<SearchParameter> searchParameters = new ArrayList<SearchParameter>();
+    List<SearchParameter> searchParameters = new ArrayList<>();
 
     // Get ideas related to query search parameter.
     RelatedToQuerySearchParameter relatedToQuerySearchParameter =
@@ -114,7 +114,7 @@ public class TisAlternativesFinder implements AlternativesFinder {
    * @return a {@link Map} of plain text keywords and their {@link IdeaEstimate}s
    * @throws KeywordOptimizerException in case of an error retrieving keywords from TIS
    */
-  protected ImmutableMap<String, IdeaEstimate> getKeywordsAndEstimates(KeywordCollection keywords)
+  private ImmutableMap<String, IdeaEstimate> getKeywordsAndEstimates(KeywordCollection keywords)
       throws KeywordOptimizerException {
     final TargetingIdeaSelector selector = getSelector(keywords);
     Builder<String, IdeaEstimate> keywordsAndEstimatesBuilder = ImmutableMap.builder();
@@ -122,7 +122,7 @@ public class TisAlternativesFinder implements AlternativesFinder {
     int offset = 0;
 
     try {
-      TargetingIdeaPage page = null;
+      TargetingIdeaPage page;
       do {
         selector.setPaging(new Paging(offset, PAGE_SIZE));
         page = tis.get(selector);

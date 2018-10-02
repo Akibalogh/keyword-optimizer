@@ -14,9 +14,9 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Money;
-import com.google.api.ads.adwords.axis.v201806.o.MonthlySearchVolume;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201809.cm.Money;
+import com.google.api.ads.adwords.axis.v201809.o.MonthlySearchVolume;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaService;
 import com.google.common.collect.ImmutableList;
 
 /**

@@ -14,7 +14,7 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201809.cm.Keyword;
 import java.util.HashMap;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class CachedEstimator implements TrafficEstimator {
    */
   public CachedEstimator(TrafficEstimator estimator) {
     this.estimator = estimator;
-    cache = new HashMap<Keyword, KeywordInfo>();
+    cache = new HashMap<>();
   }
 
   @Override

@@ -32,7 +32,7 @@ public enum KeywordOptimizerProperty {
 
   private final String propertyName;
 
-  private KeywordOptimizerProperty(String propertyName) {
+  KeywordOptimizerProperty(String propertyName) {
     this.propertyName = propertyName;
   }
 

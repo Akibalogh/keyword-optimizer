@@ -12,13 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.api.ads.adwords.keywordoptimizer;
+package com.google.api.ads.adwords.keywordoptimizer.formula;
 
 import static org.junit.Assert.assertEquals;
 
-import com.google.api.ads.adwords.keywordoptimizer.formula.ASTExpression;
-import com.google.api.ads.adwords.keywordoptimizer.formula.FormulaContext;
-import com.google.api.ads.adwords.keywordoptimizer.formula.FormulaScoreCalculator;
+import com.google.api.ads.adwords.keywordoptimizer.KeywordOptimizerException;
+import com.google.api.ads.adwords.keywordoptimizer.SimpleSeedGenerator;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;

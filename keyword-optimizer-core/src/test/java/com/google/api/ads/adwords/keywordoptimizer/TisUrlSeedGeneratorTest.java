@@ -17,22 +17,22 @@ package com.google.api.ads.adwords.keywordoptimizer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import com.google.api.ads.adwords.axis.v201806.cm.ApiException;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.o.Attribute;
-import com.google.api.ads.adwords.axis.v201806.o.AttributeType;
+import com.google.api.ads.adwords.axis.v201809.cm.ApiException;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.o.Attribute;
+import com.google.api.ads.adwords.axis.v201809.o.AttributeType;
 
-import com.google.api.ads.adwords.axis.v201806.o.DoubleAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.LongAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.MoneyAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.MonthlySearchVolumeAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.DoubleAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.LongAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.MoneyAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.MonthlySearchVolumeAttribute;
 
-import com.google.api.ads.adwords.axis.v201806.o.StringAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdea;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaPage;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
-import com.google.api.ads.adwords.axis.v201806.o.Type_AttributeMapEntry;
+import com.google.api.ads.adwords.axis.v201809.o.StringAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdea;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaPage;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.o.Type_AttributeMapEntry;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import java.rmi.RemoteException;

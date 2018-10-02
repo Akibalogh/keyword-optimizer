@@ -1,12 +1,31 @@
 # KeywordOptimizer (Beta)
 
+## Deprecation Notice
+
+Due to low activity in the KeywordOptimizer project, we've decided to deprecate
+it on September 28, 2018. There will not be any updates for AdWords API version
+migrations or issue tracking after this date. Please clone or fork this repository
+and migrate to the latest AdWords API version if you intend to continue using the
+code. This repository will be removed on or after 12th January 2019.
+
+We encourage you to own and maintain this project. Please fork or clone the repository
+and follow the [Google Ads Developer Blog](https://ads-developers.googleblog.com/)
+for notifications of upcoming API migrations.
+
+Your feedback is valuable to us in shaping our products. If you have comments or
+suggestions, please raise these on the project’s issue page.
+
+All the best for your future ads integrations.
+
+Google Ads team
+
 ## Special note
 
 If you are using this project, please follow the [API anouncements](https://groups.google.com/forum/#!forum/adwordsapi-announcements)
 and [API version sunsets](https://developers.google.com/adwords/api/docs/sunset-dates).
 The AdWords API changes frequently; current versions are being sunset about
 6-8 months after their introduction. Please make sure to upgrade your project
-around that timeframe.
+around that time frame.
 
 Please keep in mind: This tool uses the [TargetingIdeaService](https://developers.google.com/adwords/api/docs/guides/targeting-idea-service)
 and [TrafficEstimatorService](https://developers.google.com/adwords/api/docs/guides/traffic-estimator-service)
@@ -200,8 +219,6 @@ Pull requests are very much appreciated. Please sign the [Google Individual Cont
   <dt>Authors</dt>
   <dd>
     <a href="https://plus.google.com/116541501935961193199">Timo Bozsolik (Google Inc.)</a>,
-    <a href="https://plus.google.com/109796202278783565960">Damien Allison
-    (Google Inc.).</a>
   </dd>
   <dt>Copyright</dt><dd>Copyright © 2016 Google, Inc.</dd>
   <dt>License</dt><dd>Apache 2.0</dd>

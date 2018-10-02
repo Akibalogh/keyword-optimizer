@@ -14,16 +14,16 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.ApiException;
-import com.google.api.ads.adwords.axis.v201806.cm.Criterion;
-import com.google.api.ads.adwords.axis.v201806.o.AdGroupEstimateRequest;
-import com.google.api.ads.adwords.axis.v201806.o.CampaignEstimateRequest;
-import com.google.api.ads.adwords.axis.v201806.o.KeywordEstimate;
-import com.google.api.ads.adwords.axis.v201806.o.KeywordEstimateRequest;
-import com.google.api.ads.adwords.axis.v201806.o.TrafficEstimatorResult;
-import com.google.api.ads.adwords.axis.v201806.o.TrafficEstimatorSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TrafficEstimatorService;
-import com.google.api.ads.adwords.axis.v201806.o.TrafficEstimatorServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.ApiException;
+import com.google.api.ads.adwords.axis.v201809.cm.Criterion;
+import com.google.api.ads.adwords.axis.v201809.o.AdGroupEstimateRequest;
+import com.google.api.ads.adwords.axis.v201809.o.CampaignEstimateRequest;
+import com.google.api.ads.adwords.axis.v201809.o.KeywordEstimate;
+import com.google.api.ads.adwords.axis.v201809.o.KeywordEstimateRequest;
+import com.google.api.ads.adwords.axis.v201809.o.TrafficEstimatorResult;
+import com.google.api.ads.adwords.axis.v201809.o.TrafficEstimatorSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TrafficEstimatorService;
+import com.google.api.ads.adwords.axis.v201809.o.TrafficEstimatorServiceInterface;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,16 +138,11 @@ public class TesEstimator implements TrafficEstimator {
     try {
       // If there are no keywords in list, return empty estimate.
       if (keywords.size() == 0) {
-        KeywordCollection emptyEstimates =
-            new KeywordCollection(keywords.getCampaignConfiguration());
-        return emptyEstimates;
+        return new KeywordCollection(keywords.getCampaignConfiguration());
       }
-
       TrafficEstimatorSelector selector = createSelector(keywords);
       TrafficEstimatorResult result = tes.get(selector);
-      KeywordCollection estimates = createEstimates(result, keywords);
-
-      return estimates;
+      return createEstimates(result, keywords);
     } catch (ApiException e) {
       throw new KeywordOptimizerException("Problem while querying traffic estimator service", e);
     } catch (RemoteException e) {

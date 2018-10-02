@@ -14,17 +14,17 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.ApiException;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Paging;
-import com.google.api.ads.adwords.axis.v201806.o.Attribute;
-import com.google.api.ads.adwords.axis.v201806.o.AttributeType;
-import com.google.api.ads.adwords.axis.v201806.o.StringAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdea;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaPage;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaService;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.ApiException;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Paging;
+import com.google.api.ads.adwords.axis.v201809.o.Attribute;
+import com.google.api.ads.adwords.axis.v201809.o.AttributeType;
+import com.google.api.ads.adwords.axis.v201809.o.StringAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdea;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaPage;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
 import com.google.api.ads.common.lib.utils.Maps;
 import com.google.common.collect.ImmutableMap;
 import java.rmi.RemoteException;
@@ -74,7 +74,7 @@ public abstract class TisBasedSeedGenerator extends AbstractSeedGenerator {
     try {
       int offset = 0;
 
-      TargetingIdeaPage page = null;
+      TargetingIdeaPage page;
       do {
         selector.setPaging(new Paging(offset, PAGE_SIZE));
         page = tis.get(selector);

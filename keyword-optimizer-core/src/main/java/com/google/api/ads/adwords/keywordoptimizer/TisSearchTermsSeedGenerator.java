@@ -14,14 +14,14 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Paging;
-import com.google.api.ads.adwords.axis.v201806.o.IdeaType;
-import com.google.api.ads.adwords.axis.v201806.o.RelatedToQuerySearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.RequestType;
-import com.google.api.ads.adwords.axis.v201806.o.SearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaSelector;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Paging;
+import com.google.api.ads.adwords.axis.v201809.o.IdeaType;
+import com.google.api.ads.adwords.axis.v201809.o.RelatedToQuerySearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.RequestType;
+import com.google.api.ads.adwords.axis.v201809.o.SearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaSelector;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -46,7 +46,7 @@ public class TisSearchTermsSeedGenerator extends TisBasedSeedGenerator {
       Set<KeywordMatchType> matchTypes,
       CampaignConfiguration campaignConfiguration) {
     super(tis, matchTypes, campaignConfiguration);
-    seedKeywords = new HashSet<String>();
+    seedKeywords = new HashSet<>();
   }
 
   @Override
@@ -57,7 +57,7 @@ public class TisSearchTermsSeedGenerator extends TisBasedSeedGenerator {
     selector.setPaging(new Paging(0, PAGE_SIZE));
     selector.setRequestedAttributeTypes(KeywordOptimizerUtil.TIS_ATTRIBUTE_TYPES);
 
-    List<SearchParameter> searchParameters = new ArrayList<SearchParameter>();
+    List<SearchParameter> searchParameters = new ArrayList<>();
 
     // Get ideas related to query search parameter.
     RelatedToQuerySearchParameter relatedToQuerySearchParameter =

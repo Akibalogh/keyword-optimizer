@@ -14,8 +14,8 @@
 
 package com.google.api.ads.adwords.keywordoptimizer.formula;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Money;
-import com.google.api.ads.adwords.axis.v201806.o.StatsEstimate;
+import com.google.api.ads.adwords.axis.v201809.cm.Money;
+import com.google.api.ads.adwords.axis.v201809.o.StatsEstimate;
 import com.google.api.ads.adwords.keywordoptimizer.TrafficEstimate;
 import java.util.HashMap;
 import java.util.Map;

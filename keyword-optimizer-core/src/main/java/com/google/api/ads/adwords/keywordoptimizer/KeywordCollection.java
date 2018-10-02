@@ -14,8 +14,8 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Ordering;
 import java.util.Collection;
@@ -45,7 +45,7 @@ public class KeywordCollection implements Iterable<KeywordInfo> {
    */
   public KeywordCollection(CampaignConfiguration campaignConfiguration) {
     this.campaignConfiguration = campaignConfiguration;
-    keywords = new HashMap<Keyword, KeywordInfo>();
+    keywords = new HashMap<>();
   }
 
   /**
@@ -102,12 +102,11 @@ public class KeywordCollection implements Iterable<KeywordInfo> {
    * Returns the distinct texts of all containing {@link Keyword}s.
    */
   public Set<String> getContainingKeywordTexts() {
-    Set<String> keywordTexts = new HashSet<String>();
+    Set<String> keywordTexts = new HashSet<>();
 
     for (Keyword keyword : keywords.keySet()) {
       keywordTexts.add(keyword.getText());
     }
-
     return keywordTexts;
   }
 
@@ -115,7 +114,7 @@ public class KeywordCollection implements Iterable<KeywordInfo> {
    * Returns the distinct match types of all containing {@link Keyword}s.
    */
   public Set<KeywordMatchType> getContainingMatchTypes() {
-    Set<KeywordMatchType> matchTypes = new HashSet<KeywordMatchType>();
+    Set<KeywordMatchType> matchTypes = new HashSet<>();
 
     for (Keyword keyword : keywords.keySet()) {
       matchTypes.add(keyword.getMatchType());
@@ -155,8 +154,7 @@ public class KeywordCollection implements Iterable<KeywordInfo> {
    * Returns the average score of the {@link KeywordInfo}s contained. Entries without a score (which
    * are not evaluated yet) are skipped in the calculation.
    *
-   * @return the average score of the {@link KeywordInfo}s contained ({@link Double#NaN} if the
-   *         collection is empty or the entries are not evaluated yet)
+   * @return the average score of the {@link KeywordInfo}s.
    */
   public double getAverageScore() {
     double sum = 0;
@@ -165,7 +163,7 @@ public class KeywordCollection implements Iterable<KeywordInfo> {
         sum += keywordInfo.getScore();
       }
     }
-    return sum / keywords.size();
+    return keywords.isEmpty() ? 0.0 : sum / keywords.size();
   }
 
   @Override

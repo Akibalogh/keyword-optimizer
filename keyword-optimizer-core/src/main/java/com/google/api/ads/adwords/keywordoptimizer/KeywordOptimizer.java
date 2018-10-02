@@ -16,9 +16,9 @@ package com.google.api.ads.adwords.keywordoptimizer;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Money;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaServiceInterface;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Money;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaServiceInterface;
 import com.google.api.ads.adwords.keywordoptimizer.CampaignConfiguration.CampaignConfigurationBuilder;
 import com.google.api.ads.common.lib.conf.ConfigurationLoadException;
 import com.google.api.ads.common.lib.exception.OAuthException;
@@ -36,12 +36,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
-import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.Configuration;
@@ -104,7 +103,7 @@ public class KeywordOptimizer {
       return outputFileRequired;
     }
 
-    private OutputMode(boolean outputFileRequired) {
+    OutputMode(boolean outputFileRequired) {
       this.outputFileRequired = outputFileRequired;
     }
   }
@@ -153,12 +152,12 @@ public class KeywordOptimizer {
   public static void run(String[] args) throws KeywordOptimizerException {
     Options options = createCommandLineOptions();
 
-    CommandLineParser parser = new BasicParser();
-    CommandLine cmdLine = null;
+    CommandLineParser parser = new DefaultParser();
+    CommandLine cmdLine;
     try {
       cmdLine = parser.parse(options, args);
     } catch (ParseException e) {
-      throw new KeywordOptimizerException("Error parsing command line parameters", e);
+      throw new KeywordOptimizerException(e.getMessage(), e);
     }
 
     logHeadline("Startup");
@@ -202,137 +201,155 @@ public class KeywordOptimizer {
   private static Options createCommandLineOptions() {
     Options options = new Options();
 
-    OptionBuilder.withLongOpt("keyword-properties");
-    OptionBuilder.withDescription("Location of the keyword-optimizer.properties file.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    OptionBuilder.isRequired();
-    options.addOption(OptionBuilder.create("kp"));
-
-    OptionBuilder.withLongOpt("ads-properties");
-    OptionBuilder.withDescription("Location of the ads.properties file.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    OptionBuilder.isRequired();
-    options.addOption(OptionBuilder.create("ap"));
-
-    OptionBuilder.withLongOpt("seed-keywords");
-    OptionBuilder.withDescription(
-        "Use the given keywords (separated by spaces) as a seed for the optimization."
-        + "\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(Option.UNLIMITED_VALUES);
-    OptionBuilder.withArgName("keywords");
-    options.addOption(OptionBuilder.create("sk"));
-
-    OptionBuilder.withLongOpt("seed-keywords-file");
-    OptionBuilder.withDescription(
-        "Use the keywords from the given file (one keyword per row) as a seed for the optimization."
-        + "\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    options.addOption(OptionBuilder.create("skf"));
-
-    OptionBuilder.withLongOpt("seed-terms");
-    OptionBuilder.withDescription(
-        "Use the given search terms (separated by spaces) as a seed for the optimization."
-        + "\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(Option.UNLIMITED_VALUES);
-    OptionBuilder.withArgName("terms");
-    options.addOption(OptionBuilder.create("st"));
-
-    OptionBuilder.withLongOpt("seed-terms-file");
-    OptionBuilder.withDescription(
-        "Use the search terms from the given file (one keyword per row) as a seed "
-        + "for the optimization.\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    options.addOption(OptionBuilder.create("stf"));
-
-    OptionBuilder.withLongOpt("seed-urls");
-    OptionBuilder.withDescription(
-        "Use the given urls (separated by spaces) to extract keywords as a seed for "
-        + "the optimization.\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(Option.UNLIMITED_VALUES);
-    OptionBuilder.withArgName("urls");
-    options.addOption(OptionBuilder.create("su"));
-
-    OptionBuilder.withLongOpt("seed-urls-file");
-    OptionBuilder.withDescription(
-        "Use the urls from the given file (one url per row) to extract keywords as a seed "
-        + "for the optimization.\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    options.addOption(OptionBuilder.create("suf"));
-
-    OptionBuilder.withLongOpt("seed-category");
-    OptionBuilder.withDescription(
-        "Use the given category (ID as defined @ https://goo.gl/xUEr6s) to get keywords as a seed "
-        + "for the optimization.\nNote: Only one seed-* option is allowed.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("id");
-    options.addOption(OptionBuilder.create("sc"));
-
-    OptionBuilder.withLongOpt("match-types");
-    OptionBuilder.withDescription("Use the given keyword match types (EXACT, BROAD, PHRASE).");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(3);
-    OptionBuilder.withArgName("types");
-    OptionBuilder.isRequired();
-    options.addOption(OptionBuilder.create("m"));
-
-    OptionBuilder.withLongOpt("max-cpc");
-    OptionBuilder.withDescription("Use the given maximum CPC (in USD, e.g., 5.0 for $5).");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("double");
-    OptionBuilder.isRequired();
-    options.addOption(OptionBuilder.create("cpc"));
-
-    OptionBuilder.withLongOpt("locations");
-    OptionBuilder.withDescription(
-        "Use the given locations IDs (ID as defined @ https://goo.gl/TA5E81) for "
-        + "geo-targeted results.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(Option.UNLIMITED_VALUES);
-    OptionBuilder.withArgName("ids");
-    options.addOption(OptionBuilder.create("loc"));
-
-    OptionBuilder.withLongOpt("languages");
-    OptionBuilder.withDescription(
-        "Use the given locations IDs (ID as defined @ https://goo.gl/WWzifs) for "
-        + "language-targeted results.");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(Option.UNLIMITED_VALUES);
-    OptionBuilder.withArgName("ids");
-    options.addOption(OptionBuilder.create("lang"));
-
-    OptionBuilder.withLongOpt("output");
-    OptionBuilder.withDescription(
-        "Mode for outputting results (CONSOLE / CSV / BULK_SHEET)\nNote: If set to CSV / "
-        + "BULK_SHEET, then option -of also has to be specified. If set to BULK_SHEET, then option "
-        + "-ag also has to be specified");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.hasArgs(2);
-    OptionBuilder.withArgName("mode");
-    OptionBuilder.isRequired();
-    options.addOption(OptionBuilder.create("o"));
-
-    OptionBuilder.withLongOpt("output-file");
-    OptionBuilder.withDescription(
-        "File to for writing output data (only needed if option -o is set to CSV / BULK_SHEET).");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("file");
-    options.addOption(OptionBuilder.create("of"));
-    
-    OptionBuilder.withLongOpt("ad-group-id");
-    OptionBuilder.withDescription(
-        "Ad Group ID for bulk sheet output (only needed if option -o is set to BULK_SHEET).");
-    OptionBuilder.hasArg(true);
-    OptionBuilder.withArgName("id");
-    options.addOption(OptionBuilder.create("ag"));
-
+    options.addOption(
+        Option.builder("kp")
+            .longOpt("keyword-properties")
+            .hasArg()
+            .argName("file")
+            .required()
+            .build());
+    options.addOption(
+        Option.builder("ap").longOpt("ads-properties").hasArg().argName("file").required().build());
+    options.addOption(
+        Option.builder("sk")
+            .longOpt("seed-keywords")
+            .hasArgs()
+            .numberOfArgs(Option.UNLIMITED_VALUES)
+            .argName("keywords")
+            .desc(
+                "Use the given keywords (separated by spaces) as a seed for the optimization."
+                    + "\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("skf")
+            .longOpt("seed-keywords-file")
+            .hasArg()
+            .argName("file")
+            .desc(
+                "Use the keywords from the given file (one keyword per row) as a seed for the "
+                    + "optimization.\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("st")
+            .longOpt("seed-terms")
+            .hasArg()
+            .argName("terms")
+            .hasArgs()
+            .numberOfArgs(Option.UNLIMITED_VALUES)
+            .desc(
+                "Use the given search terms (separated by spaces) as a seed for the optimization."
+                    + "\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("stf")
+            .longOpt("seed-terms-file")
+            .hasArg()
+            .argName("file")
+            .desc(
+                "Use the search terms from the given file (one keyword per row) as a seed "
+                    + "for the optimization.\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("su")
+            .longOpt("seed-urls")
+            .hasArg()
+            .argName("urls")
+            .hasArgs()
+            .numberOfArgs(Option.UNLIMITED_VALUES)
+            .desc(
+                "Use the given urls (separated by spaces) to extract keywords as a seed for "
+                    + "the optimization.\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("suf")
+            .longOpt("seed-urls-file")
+            .hasArg()
+            .argName("file")
+            .desc(
+                "Use the urls from the given file (one url per row) to extract keywords as a seed "
+                    + "for the optimization.\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("sc")
+            .longOpt("seed-category")
+            .hasArg()
+            .argName("id")
+            .desc(
+                "Use the given category (ID as defined @ https://goo.gl/xUEr6s) to get keywords "
+                    + "as a seed for the optimization.\nNote: Only one seed-* option is allowed.")
+            .build());
+    options.addOption(
+        Option.builder("m")
+            .longOpt("match-types")
+            .hasArg()
+            .argName("types")
+            .hasArgs()
+            .numberOfArgs(3)
+            .desc("Use the given keyword match types (EXACT, BROAD, PHRASE).")
+            .required()
+            .build());
+    options.addOption(
+        Option.builder("cpc")
+            .longOpt("max-cpc")
+            .hasArg()
+            .argName("double")
+            .required()
+            .desc("Use the given maximum CPC (in USD, e.g., 5.0 for $5).")
+            .build());
+    options.addOption(
+        Option.builder("loc")
+            .longOpt("locations")
+            .hasArg()
+            .argName("ids")
+            .hasArgs()
+            .numberOfArgs(Option.UNLIMITED_VALUES)
+            .desc(
+                "Use the given locations IDs (ID as defined @ https://goo.gl/TA5E81) for "
+                    + "geo-targeted results.")
+            .build());
+    options.addOption(
+        Option.builder("lang")
+            .longOpt("languages")
+            .hasArg()
+            .argName("ids")
+            .hasArgs()
+            .numberOfArgs(Option.UNLIMITED_VALUES)
+            .desc(
+                "Use the given locations IDs (ID as defined @ https://goo.gl/WWzifs) for "
+                    + "language-targeted results.")
+            .build());
+    options.addOption(
+        Option.builder("o")
+            .longOpt("output")
+            .hasArgs()
+            .argName("mode")
+            .required()
+            .hasArgs()
+            .numberOfArgs(2)
+            .hasArg()
+            .desc(
+                "Mode for outputting results (CONSOLE / CSV / BULK_SHEET)\nNote: If set to CSV / "
+                    + "BULK_SHEET, then option -of also has to be specified. If set to BULK_SHEET, "
+                    + "then option -ag also has to be specified")
+            .build());
+    options.addOption(
+        Option.builder("of")
+            .longOpt("output-file")
+            .hasArg()
+            .argName("file")
+            .desc(
+                "File to for writing output data (only needed if option -o is set to "
+                    + "CSV / BULK_SHEET).")
+            .build());
+    options.addOption(
+        Option.builder("ag")
+            .longOpt("ad-group-id")
+            .hasArg()
+            .argName("id")
+            .desc(
+                "Ad Group ID for bulk sheet output (only needed if option -o is "
+                    + "set to BULK_SHEET).")
+            .build());
     return options;
   }
 
@@ -400,11 +417,10 @@ public class KeywordOptimizer {
    *
    * @param cmdLine the parsed command line parameters
    * @return the match types for creating the seed keywords
-   * @throws KeywordOptimizerException in case no match type has been specified
    */
   private static Set<KeywordMatchType> getMatchTypes(CommandLine cmdLine)
       throws KeywordOptimizerException {
-    Set<KeywordMatchType> matchTypes = new HashSet<KeywordMatchType>();
+    Set<KeywordMatchType> matchTypes = new HashSet<>();
     for (String matchType : cmdLine.getOptionValues("m")) {
       KeywordMatchType mt = KeywordMatchType.fromString(matchType);
 
@@ -548,13 +564,11 @@ public class KeywordOptimizer {
     } else if ("sc".equals(seedOption.getOpt())) {
       int category = Integer.parseInt(seedOption.getValue());
       log("Using seed category: " + category);
-      TisCategorySeedGenerator seedGenerator =
-          new TisCategorySeedGenerator(
-              context.getAdwordsApiUtil().getService(TargetingIdeaServiceInterface.class),
-              category,
-              matchTypes,
-              campaignSettings);
-      return seedGenerator;
+      return new TisCategorySeedGenerator(
+          context.getAdwordsApiUtil().getService(TargetingIdeaServiceInterface.class),
+          category,
+          matchTypes,
+          campaignSettings);
     }
 
     throw new KeywordOptimizerException(
@@ -610,7 +624,7 @@ public class KeywordOptimizer {
           outputCsv(cmdLine, bestKeywords);
           break;
         case BULK_SHEET:
-          outputBulksheet(cmdLine, bestKeywords);
+          outputBulkSheet(cmdLine, bestKeywords);
           break;
         default:
           throw new KeywordOptimizerException("Parameter -o is required");
@@ -680,16 +694,16 @@ public class KeywordOptimizer {
       throw new KeywordOptimizerException("Error writing to output file", e);
     }
   }
-  
+
   /**
-   * Outputs the results as a csv file that can be used for bulk upload (sorted, best first).
-   * See https://support.google.com/adwords/answer/2477116.
+   * Outputs the results as a csv file that can be used for bulk upload (sorted, best first). See
+   * https://support.google.com/adwords/answer/2477116.
    *
    * @param cmdLine the parsed command line parameters
    * @param bestKeywords the optimized set of keywords
    * @throws KeywordOptimizerException in case there is a problem writing to the output file
    */
-  private static void outputBulksheet(CommandLine cmdLine, KeywordCollection bestKeywords)
+  private static void outputBulkSheet(CommandLine cmdLine, KeywordCollection bestKeywords)
       throws KeywordOptimizerException {
     if (!cmdLine.hasOption("of")) {
       throw new KeywordOptimizerException("No output file (option -of specified)");
@@ -793,7 +807,7 @@ public class KeywordOptimizer {
    * @throws KeywordOptimizerException in case there is a problem reading the file
    */
   private static List<String> loadFromFile(String fileName) throws KeywordOptimizerException {
-    List<String> out = new ArrayList<String>();
+    List<String> out = new ArrayList<>();
 
     Scanner scan = null;
     try {
@@ -829,8 +843,8 @@ public class KeywordOptimizer {
    * @throws KeywordOptimizerException in case of a problem lading the specified object
    */
   @SuppressWarnings(value = "unchecked")
-  public static <Type> Type createObjectBasedOnProperty(
-      Class<Type> clazz, KeywordOptimizerProperty property, OptimizationContext context)
+  private static <T> T createObjectBasedOnProperty(
+      Class<T> clazz, KeywordOptimizerProperty property, OptimizationContext context)
       throws KeywordOptimizerException {
     String className = context.getConfiguration().getString(property.getName());
     if (className == null || className.isEmpty()) {
@@ -839,20 +853,20 @@ public class KeywordOptimizer {
     }
 
     try {
-      Class<Type> dynamicClazz = (Class<Type>) Class.forName(className);
+      Class<T> dynamicClazz = (Class<T>) Class.forName(className);
 
       // First try if there is a constructor expecting the optimization context.
       try {
-        Constructor<Type> constructor = dynamicClazz.getConstructor(OptimizationContext.class);
-        Type obj = constructor.newInstance(context);
+        Constructor<T> constructor = dynamicClazz.getConstructor(OptimizationContext.class);
+        T obj = constructor.newInstance(context);
         return clazz.cast(obj);
       } catch (NoSuchMethodException e) {
         // Ignore.
       }
 
       // Else use default constructor.
-      Constructor<Type> constructor = dynamicClazz.getConstructor();
-      Type obj = constructor.newInstance();
+      Constructor<T> constructor = dynamicClazz.getConstructor();
+      T obj = constructor.newInstance();
       return clazz.cast(obj);
     } catch (ReflectiveOperationException e) {
       throw new KeywordOptimizerException("Error constructing '" + className + "'");

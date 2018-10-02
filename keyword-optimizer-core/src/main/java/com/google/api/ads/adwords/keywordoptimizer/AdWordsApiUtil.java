@@ -231,8 +231,7 @@ public class AdWordsApiUtil {
   private void retrieveRefreshToken() throws ValidationException, ConfigurationLoadException {
     logger.info("Retrieving a new refresh token");
 
-    
-    GoogleClientSecrets clientSecrets = null;
+    GoogleClientSecrets clientSecrets;
     try {
       clientSecrets = new GoogleClientSecretsBuilder()
               .forApi(com.google.api.ads.common.lib.auth.GoogleClientSecretsBuilder.Api.ADWORDS)
@@ -263,15 +262,8 @@ public class AdWordsApiUtil {
   }
 
   /**
-   * Returns the current AdWords API session.
-   */
-  public AdWordsSession getSession() {
-    return session;
-  }
-
-  /**
    * Creates a new specific service using the {@link AdWordsServicesInterface}.
-   * 
+   *
    * @param interfaceClass the interface of the service
    * @return the newly created service
    */
@@ -279,11 +271,4 @@ public class AdWordsApiUtil {
     return services.get(session, interfaceClass);
   }
 
-  /**
-   * Get client customer ID from the adwords session, and convert it to Long type.
-   */
-  public Long getClientCustomerId() {
-    String accountIdStr = session.getClientCustomerId();
-    return accountIdStr == null ? null : Long.valueOf(accountIdStr.replace("-", ""));
-  }
 }

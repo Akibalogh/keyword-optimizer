@@ -14,28 +14,29 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.Criterion;
-import com.google.api.ads.adwords.axis.v201806.cm.Keyword;
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
-import com.google.api.ads.adwords.axis.v201806.cm.Language;
-import com.google.api.ads.adwords.axis.v201806.cm.Location;
-import com.google.api.ads.adwords.axis.v201806.cm.Money;
-import com.google.api.ads.adwords.axis.v201806.o.Attribute;
-import com.google.api.ads.adwords.axis.v201806.o.AttributeType;
-import com.google.api.ads.adwords.axis.v201806.o.DoubleAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.LanguageSearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.LocationSearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.LongAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.MoneyAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.MonthlySearchVolume;
-import com.google.api.ads.adwords.axis.v201806.o.MonthlySearchVolumeAttribute;
-import com.google.api.ads.adwords.axis.v201806.o.SearchParameter;
-import com.google.api.ads.adwords.axis.v201806.o.StatsEstimate;
-import com.google.api.ads.adwords.axis.v201806.o.TargetingIdeaService;
+import com.google.api.ads.adwords.axis.v201809.cm.Criterion;
+import com.google.api.ads.adwords.axis.v201809.cm.Keyword;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.Language;
+import com.google.api.ads.adwords.axis.v201809.cm.Location;
+import com.google.api.ads.adwords.axis.v201809.cm.Money;
+import com.google.api.ads.adwords.axis.v201809.o.Attribute;
+import com.google.api.ads.adwords.axis.v201809.o.AttributeType;
+import com.google.api.ads.adwords.axis.v201809.o.DoubleAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.LanguageSearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.LocationSearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.LongAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.MoneyAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.MonthlySearchVolume;
+import com.google.api.ads.adwords.axis.v201809.o.MonthlySearchVolumeAttribute;
+import com.google.api.ads.adwords.axis.v201809.o.SearchParameter;
+import com.google.api.ads.adwords.axis.v201809.o.StatsEstimate;
+import com.google.api.ads.adwords.axis.v201809.o.TargetingIdeaService;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.Nullable;
 
 /**
  * Utility functions (math, strings, ...) for various other classes in this project.
@@ -100,84 +101,13 @@ public class KeywordOptimizerUtil {
   }
 
   /**
-   * Creates the sum / average values for a given list of {@link StatsEstimate}s.
-   * 
-   * @param estimates the list of stats
-   * @return the mean value for all given stats
-   */
-  public static StatsEstimate getOverallEstimate(List<StatsEstimate> estimates) {
-    float sumClicks = 0;
-    float sumImpressions = 0;
-    float sumTotalCost = 0;
-    double sumAvgPosition = 0;
-    int countAvgPosition = 0;
-    double sumAvgCpc = 0;
-    int countAvgCpc = 0;
-    double sumAvgCtr = 0;
-    int countAvgCtr = 0;
-
-    for (StatsEstimate estimate : estimates) {
-      if (estimate.getClicksPerDay() != null) {
-        sumClicks += estimate.getClicksPerDay();
-      }
-      if (estimate.getImpressionsPerDay() != null) {
-        sumImpressions += estimate.getImpressionsPerDay();
-      }
-      if (estimate.getTotalCost() != null) {
-        sumTotalCost += estimate.getTotalCost().getMicroAmount();
-      }
-      if (estimate.getAveragePosition() != null) {
-        sumAvgPosition += estimate.getAveragePosition();
-        countAvgPosition++;
-      }
-      if (estimate.getAverageCpc() != null) {
-        sumAvgCpc += estimate.getAverageCpc().getMicroAmount();
-        countAvgCpc++;
-      }
-      if (estimate.getClickThroughRate() != null) {
-        sumAvgCtr += estimate.getClickThroughRate();
-        countAvgCtr++;
-      }
-    }
-
-    double avgPosition = 0;
-    if (countAvgPosition > 0) {
-      avgPosition = sumAvgPosition / countAvgPosition;
-    }
-
-    double avgCtr = 0;
-    if (countAvgCtr > 0) {
-      avgCtr = sumAvgCtr / countAvgCtr;
-    }
-
-    Money avgCpc = null;
-    if (countAvgCpc > 0) {
-      avgCpc = new Money();
-      avgCpc.setMicroAmount((long) (sumAvgCpc / countAvgCpc));
-    }
-
-    Money totalCost = new Money();
-    totalCost.setMicroAmount((long) sumTotalCost);
-
-    StatsEstimate stats = new StatsEstimate();
-    stats.setAverageCpc(avgCpc);
-    stats.setAveragePosition(avgPosition);
-    stats.setClicksPerDay(sumClicks);
-    stats.setClickThroughRate(avgCtr);
-    stats.setImpressionsPerDay(sumImpressions);
-    stats.setTotalCost(totalCost);
-
-    return stats;
-  }
-
-  /**
    * Returns the mean of the two {@link Money} values if neither is null, else returns null.
    *
    * @param value1 first value
    * @param value2 second value
    * @return the mean of the two {@link Money} values
    */
-  public static Money calculateMean(Money value1, Money value2) {
+  private static Money calculateMean(Money value1, Money value2) {
     if (value1 == null || value2 == null) {
       return null;
     }
@@ -200,7 +130,7 @@ public class KeywordOptimizerUtil {
    * @param value2 second value
    * @return the mean of the two {@link Money} values
    */
-  public static Double calculateMean(Number value1, Number value2) {
+  private static Double calculateMean(Number value1, Number value2) {
     if (value1 == null || value2 == null) {
       return null;
     }
@@ -227,15 +157,14 @@ public class KeywordOptimizerUtil {
    * @return a string representation of the estimate
    */
   public static String toString(StatsEstimate estimate) {
-    StringBuilder out = new StringBuilder();
-    out.append("Imp: ").append(format(estimate.getImpressionsPerDay()));
-    out.append(" Cli:  ").append(format(estimate.getClicksPerDay()));
-    out.append(" Ctr:  ").append(format(estimate.getClickThroughRate()));
-    out.append(" Pos:  ").append(format(estimate.getAveragePosition()));
-    out.append(" Cpc:  ").append(format(estimate.getAverageCpc()));
-    out.append(" Cos:  ").append(format(estimate.getTotalCost()));
-
-    return out.toString();
+    return String.format(
+        "Imp: %s Cli: %s Ctr: %s Pos: %s Cpc: %s Cos: %s",
+        format(estimate.getImpressionsPerDay()),
+        format(estimate.getClicksPerDay()),
+        format(estimate.getClickThroughRate()),
+        format(estimate.getAveragePosition()),
+        format(estimate.getAverageCpc()),
+        format(estimate.getTotalCost()));
   }
 
   /**
@@ -265,24 +194,12 @@ public class KeywordOptimizerUtil {
   }
 
   /**
-   * Convenience method for creating a money object.
-   *
-   * @param value the amount in actual currency
-   * @return the newly created {@link Money} object
-   */
-  public static Money createMoney(double value) {
-    Money money = new Money();
-    money.setMicroAmount((long) (value * MICRO_UNITS));
-    return money;
-  }
-
-  /**
    * Formats a given number in a default format (3 decimals, padded left to 10 characters).
    *
    * @param nr a number
    * @return a string version of the number
    */
-  public static String format(Float nr) {
+  private static String format(Float nr) {
     if (nr == null) {
       return PLACEHOLDER_NULL;
     }
@@ -292,7 +209,7 @@ public class KeywordOptimizerUtil {
 
   /**
    * Formats a given number in a default format (3 decimals, padded left to 10 characters).
-   * 
+   *
    * @param nr a number
    * @return a string version of the number
    */
@@ -305,27 +222,13 @@ public class KeywordOptimizerUtil {
   }
 
   /**
-   * Formats a given number for CSV output (effectively handles null values).
-   *
-   * @param nr a number
-   * @return a string version of the number
-   */
-  public static String formatCsv(Number nr) {
-    if (nr == null) {
-      return "";
-    }
-
-    return nr.toString();
-  }
-
-  /**
    * Formats a given monetary value in a default format (2 decimals, padded left to 10 characters).
    *
    * @param money a monetary value
    * @return a string version of the monetary value
    */
   public static String format(Money money) {
-    long microAmount = 0;
+    long microAmount;
     if (money != null) {
       microAmount = money.getMicroAmount();
     } else {
@@ -337,24 +240,33 @@ public class KeywordOptimizerUtil {
   }
 
   /**
+   * Formats a given number for CSV output (effectively handles null values).
+   *
+   * @param number a number or null
+   * @return a string version of the number or the empty string if number is null.
+   */
+  public static String formatCsv(@Nullable Number number) {
+    return null == number ? "" : number.toString();
+  }
+
+  /**
    * Returns all objects in the given list that are instances of the given class.
    *
    * @param input list of objects to look through
    * @param typeClass class of the objects to filter
-   * @return an array of all objects in the given list that are instances
-   * of the given class
+   * @return an array of all objects in the given list that are instances of the given class
    */
   @SuppressWarnings(value = "unchecked")
-  public static <Type> Type[] getAllOfType(List<?> input, Class<Type> typeClass) {
-    List<Type> allEntriesOfType = new ArrayList<Type>();
+  private static <T> T[] getAllOfType(List<?> input, Class<T> typeClass) {
+    List<T> allEntriesOfType = new ArrayList<T>();
 
     for (Object o : input) {
       if (typeClass.isInstance(o)) {
-        allEntriesOfType.add((Type) o);
+        allEntriesOfType.add((T) o);
       }
     }
 
-    return allEntriesOfType.toArray((Type[]) Array.newInstance(typeClass, 0));
+    return allEntriesOfType.toArray((T[]) Array.newInstance(typeClass, 0));
   }
 
   /**
@@ -365,7 +277,7 @@ public class KeywordOptimizerUtil {
    * @return a list of according {@link SearchParameter}s
    */
   public static List<SearchParameter> toSearchParameters(List<Criterion> criteria) {
-    List<SearchParameter> parameters = new ArrayList<SearchParameter>();
+    List<SearchParameter> parameters = new ArrayList<>();
 
     // Take all location criteria and add as one searchParameter.
     Location[] allLocations = KeywordOptimizerUtil.getAllOfType(criteria, Location.class);

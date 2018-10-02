@@ -14,7 +14,7 @@
 
 package com.google.api.ads.adwords.keywordoptimizer;
 
-import com.google.api.ads.adwords.axis.v201806.cm.KeywordMatchType;
+import com.google.api.ads.adwords.axis.v201809.cm.KeywordMatchType;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMap.Builder;
 import java.util.ArrayList;
@@ -38,41 +38,7 @@ public class SimpleSeedGenerator extends AbstractSeedGenerator {
   public SimpleSeedGenerator(
       Set<KeywordMatchType> matchTypes, CampaignConfiguration campaignConfiguration) {
     super(matchTypes, campaignConfiguration);
-    keywords = new ArrayList<String>();
-  }
-
-  /**
-   * Creates a new {@link SimpleSeedGenerator} containing a list of given keywords.
-   *
-   * @param matchTypes match types to be used for seed keyword creation
-   * @param campaignConfiguration additional campaign-level settings for keyword evaluation
-   * @param keywords the keywords (plain text) to use
-   */
-  public SimpleSeedGenerator(
-      Set<KeywordMatchType> matchTypes,
-      CampaignConfiguration campaignConfiguration,
-      Collection<String> keywords) {
-    super(matchTypes, campaignConfiguration);
-    this.keywords = new ArrayList<String>(keywords);
-  }
-
-  /**
-   * Creates a new {@link SimpleSeedGenerator} containing a list of given keywords.
-   *
-   * @param matchTypes match types to be used for seed keyword creation
-   * @param campaignConfiguration additional campaign-level settings for keyword evaluation
-   * @param keywords the keywords (plain text) to use
-   */
-  public SimpleSeedGenerator(
-      Set<KeywordMatchType> matchTypes,
-      CampaignConfiguration campaignConfiguration,
-      String... keywords) {
-    super(matchTypes, campaignConfiguration);
-    this.keywords = new ArrayList<String>(keywords.length);
-
-    for (String keyword : keywords) {
-      this.keywords.add(keyword);
-    }
+    keywords = new ArrayList<>();
   }
 
   @Override
